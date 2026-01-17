@@ -1,4 +1,4 @@
-# OSD Project 2: Custom Linux Shell Implementation
+# Custom Linux Shell Implementation
 
 A fully functional custom Linux shell implementation in C that provides an interactive command-line interface with built-in commands, piping, I/O redirection, and command history support.
 
@@ -370,11 +370,6 @@ This project is intended for educational purposes.
 - Unix/Linux shell documentation
 - Operating Systems course materials
 
----
-
-**Project**: OSD Project 2  
-**Subject**: Operating System Design  
-**Focus**: Custom Linux Shell Implementation with Process Management and IPC
 
 ## 📸 Screenshots
 
@@ -386,5 +381,6 @@ Screenshots of the shell in action are available in the `output attachments/` di
 - Directory navigation
 
 ---
+
 
 **Note**: This shell is a learning project and should not be used as a production shell. Always test commands in a safe environment.

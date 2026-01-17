@@ -1,4 +1,4 @@
-# Big Data Analytics: Tourist Behavior Analysis
+# Tourist Behavior Analysis
 
 A comprehensive big data analytics project that analyzes tourist behavior patterns using photo metadata from Flickr. This project performs geospatial clustering and seasonal trend analysis on tourist activity data from San Francisco and India to identify popular locations and temporal patterns.
 
@@ -279,16 +279,11 @@ This project is for educational and research purposes. Data sources and licensin
 - Scikit-learn clustering: https://scikit-learn.org/stable/modules/clustering.html
 - NLTK documentation: https://www.nltk.org/
 
----
-
-**Project Group**: GROUP_1  
-**Subject**: Big Data Analytics  
-**Focus**: Tourist Behavior Analysis using Geospatial Clustering and Time-Series Analysis
-
 ## 🎯 Use Cases
 
 - **Tourism Planning**: Identify popular destinations for infrastructure development
 - **Seasonal Marketing**: Understand peak tourism periods for promotional campaigns
 - **Urban Planning**: Analyze spatial patterns for city development
 - **Research**: Academic research on human mobility and behavior patterns
+
 - **Business Intelligence**: Insights for hospitality and travel industry

@@ -1,0 +1,73 @@
+// C++ program for implementimeion of FCFS
+// scheduling
+#include<iostream>
+using namespace std;
+
+// Function to find the waiting time for all
+// processes
+void waiting_time(int processes[], int n,
+						int b[], int w[])
+{
+	// waiting time for first process is 0
+	w[0] = 0;
+
+	// calculating waiting time
+	for (int i = 1; i < n ; i++ )
+		w[i] = b[i-1] + w[i-1] ;
+}
+
+// Function to calculate turn around time
+void turnaround_time( int processes[], int n,
+				int b[], int w[], int time[])
+{
+	// calculating turnaround time by adding
+	// b[i] + w[i]
+	for (int i = 0; i < n ; i++)
+		time[i] = b[i] + w[i];
+}
+
+//Function to calculate average time
+void average_time( int processes[], int n, int b[])
+{
+	int w[n], time[n], total_weight= 0, total_time = 0;
+
+	//Function to find waiting time of all processes
+	waiting_time(processes, n, b, w);
+
+	//Function to find turn around time for all processes
+	turnaround_time(processes, n, b, w, time);
+
+	//Display processes along with all details
+	cout << "Processes "<< " Burst time "
+		<< " Waiting time " << " Turn around time\n";
+
+	// Calculate total waiting time and total turn
+	// around time
+	for (int i=0; i<n; i++)
+	{
+		total_weight = total_weight + w[i];
+		total_time = total_time + time[i];
+		cout << " " << i+1 << "\t\t" << b[i] <<"\t "
+			<< w[i] <<"\t\t " << time[i] <<endl;
+	}
+
+	cout << "Average waiting time = "
+		<< (float)total_weight / (float)n;
+	cout << "\nAverage turn around time = "
+		<< (float)total_time / (float)n;
+}
+
+// Driver code
+int main()
+{
+	   	cout<<"\n\n**********FCFS ************\n";
+ int processes[]= { 1,2,3,4,5 };
+ int n = sizeof processes / sizeof processes[0];
+
+	//Burst time of all processes
+	int bursttime[] = {10,5,8,1,2};
+
+	average_time(processes, n, bursttime);
+	    cout<<"\n\n";
+	return 0;
+}

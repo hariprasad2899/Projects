@@ -1,4 +1,4 @@
-# OSD Project 1: CPU Scheduling Algorithms Implementation
+# CPU Scheduling Algorithms Implementation
 
 A comprehensive collection of CPU scheduling algorithms implemented in C++. This project demonstrates various scheduling techniques used by operating systems to manage process execution and optimize CPU utilization.
 
@@ -323,9 +323,3 @@ This project is intended for educational purposes.
 - Operating Systems Concepts (textbook references)
 - CPU Scheduling Algorithm research papers
 - C++ Standard Template Library documentation
-
----
-
-**Project**: OSD Project 1  
-**Subject**: Operating System Design  
-**Focus**: CPU Scheduling Algorithms Implementation and Analysis

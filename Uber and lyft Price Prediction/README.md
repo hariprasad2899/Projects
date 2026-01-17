@@ -131,10 +131,4 @@ Run the notebook to see the specific performance metrics for your dataset.
 - Mobile application version
 - Surge pricing analysis
 
-## 👤 Author
 
-SDAI Project Team
-
-## 📄 License
-
-This project is for educational purposes.

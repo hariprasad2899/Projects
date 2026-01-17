@@ -380,7 +380,4 @@ Screenshots of the shell in action are available in the `output attachments/` di
 - Command history display
 - Directory navigation
 
----
 
-
-**Note**: This shell is a learning project and should not be used as a production shell. Always test commands in a safe environment.

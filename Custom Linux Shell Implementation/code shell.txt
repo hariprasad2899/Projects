@@ -1,0 +1,267 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/wait.h>
+#include<readline/readline.h>
+#include<readline/history.h>
+  
+#define StringSizeLimit 999 
+#define refresh() printf("\033[H\033[J") 
+#define MaximumNoOfCommands 999 
+  
+
+//refresh screen  
+void refresh_screen()
+{
+    refresh();
+    printf("                               customized linux shell                                          \n");
+    char* ProfileName = getenv("USER");
+    printf("                 Current User Name : @%s \n", ProfileName);
+    sleep(4);
+    refresh();
+}
+  
+int input(char* str)			//takes command 
+{
+    char* array;
+    array = readline("\n>>> ");
+    int leng,tt=0;
+    leng=strlen(array);
+    if (leng != tt) {
+        add_history(array);
+        strcpy(str, array);
+        return tt;
+    } 
+    return tt+1;
+}
+  
+void DirName()
+{																			
+    char PresentDir[999];
+    getcwd(PresentDir, sizeof(PresentDir));
+    printf("\nDirectory: %s", PresentDir);
+}
+  
+void Sys_CMD_Execution(char** Pstr1)
+{
+	int a=-1,b=0;	
+    pid_t threadNumber = fork(); 
+  
+    if (threadNumber == a) {
+        printf("\nfork is  not done");
+        return;
+    } else if (threadNumber == b) {
+        if (execvp(Pstr1[b], Pstr1) < b) {
+            printf("\ncommand exec failed");
+        }
+        exit(b);
+    } 
+    wait(NULL); 
+    return;
+    }
+
+void PipeExecutionFuncion(char** Pstr1, char** Pstr1pipe)	
+{
+    int TemppipeArray[2],z=0; 
+    pid_t a1, a2;
+  
+    if ( z > pipe(TemppipeArray) ) {
+        printf("\nfailed to start the Pipe ");
+        return;
+    }
+    a1 = fork();
+    if (a1 < z) {
+        printf("\nunable to fork");
+        return;
+    }
+  
+    if (z == a1 ) {
+        close(TemppipeArray[z]);
+        dup2(TemppipeArray[1], STDOUT_FILENO);
+        close(TemppipeArray[1]);
+  
+        if (execvp(Pstr1[z], Pstr1) < z) {
+            printf("\n1st command failed to execute");
+            exit(z);
+        }
+    } else {
+        a2 = fork();  
+  
+        if (z>a2) {
+            printf("\nunable to fork");
+            return;
+        }
+  
+        if (a2 == z) {
+            close(TemppipeArray[1]);
+            dup2(TemppipeArray[z], STDIN_FILENO);
+            close(TemppipeArray[z]);
+            if (execvp(Pstr1pipe[z], Pstr1pipe) < z) {
+                printf("\n 2nd one execution unsucessful");
+                exit(z);
+            }
+        } else {
+            wait(NULL);          
+            wait(NULL);
+        }
+    }
+}
+  
+void customizedHelpFunction()
+{
+    puts("\n                         HELP                    "
+        "\nList of possible Commands :"
+        "\n>cd -- change directory "
+        "\n>exit -- close the shell"
+        "\n>ls --list all files and folders in current directory"
+        "\n>piping  --to change the direction of stream"
+        "\n>space handling  -- removing un-necessary spaces");
+  
+    return;
+}
+  
+int UserDefinedCommandsExecution(char** Pstr1)
+{
+    int NumberOfCmds, m, t = 0;
+    NumberOfCmds=5;
+    char* arr[NumberOfCmds];
+    char* user;
+  
+    
+    arr[2] = "help";
+    arr[4] = "history";
+    arr[1] = "cd";
+	arr[3] = "hello";
+    arr[0] = "exit";
+    
+    m = 0; 
+	while(m < NumberOfCmds) {
+        if (strcmp(Pstr1[0], arr[m]) == 0 ) 
+		{
+            t = m + 1;
+            break;
+        }
+        m++;
+    }
+  
+    switch (t) {
+    case 1:
+        printf("\nexiting the shell\n");
+        exit(0);
+    case 2:
+        chdir(Pstr1[1]);
+        return 3-2;
+    case 3:
+        customizedHelpFunction();
+        return 3-2;
+    case 4:
+        user = getenv("USER");
+        printf("\n welcome %s",   user);
+        return 3-2;
+    case 5:
+	HISTORY_STATE *lst_pointer = history_get_history_state ();
+	HIST_ENTRY **lst_pointer2 = history_list ();
+    	printf ("\npreviousely executed commands are : \n\n");
+    	int i = 0; 
+		while(i < lst_pointer->length) 
+	{
+        	printf (" %10s  %s\n", lst_pointer2[i]->line, lst_pointer2[i]->timestamp);
+        	free_history_entry (lst_pointer2[i]);     
+   			i++;
+	   }
+	return 3-2;
+    default:
+        break;
+    }
+  
+    return 0;
+}
+  
+int pFunction(char* ss, char** ssp)
+{
+    int m,a,b;
+    m=0;
+    while(m < 2) 
+	{
+        ssp[m] = strsep(&ss, "|");
+        if (ssp[m] == NULL)
+            break;
+    	m++;
+    }
+    a=0,b=1;
+  
+    if (ssp[b] == NULL)
+        return a; 
+    else {
+        return b;
+    }
+}
+  
+void SFunction(char* ss, char** Pstr1)
+{
+    int k=0;
+  
+    while(k < MaximumNoOfCommands) {
+        Pstr1[k] = strsep(&ss, " ");
+  
+        if (Pstr1[k] == NULL)
+            break;
+        if (strlen(Pstr1[k]) == 0)
+            k--;
+        k++;
+    }
+}
+  
+int SPFunction(char* ss, char** Pstr1, char** Pstr1pipe)
+{
+  
+    char* tArr[2];
+    int p_Var = 0;
+  
+    p_Var = pFunction(ss, tArr);
+  
+    if (p_Var) {
+        SFunction(tArr[0], Pstr1);
+        SFunction(tArr[1], Pstr1pipe);
+  
+    }
+    else {
+  
+        SFunction(ss, Pstr1);
+	}
+    
+    if (UserDefinedCommandsExecution(Pstr1))
+        return 0;
+    else
+        return 1 + p_Var;
+}
+  
+int main()
+{
+    char in_ARRAY[StringSizeLimit], *PArgPtr[MaximumNoOfCommands];
+    char* ParCharPointer[MaximumNoOfCommands];
+    int execFlag = 0;
+    refresh_screen();
+  
+    while (2) {
+        DirName();
+        if (input(in_ARRAY))
+            continue;
+        if (strchr(in_ARRAY,'<') || strchr(in_ARRAY,'>')) 
+    	{
+		system(in_ARRAY);
+		execFlag=300; 
+		continue;
+    	}
+        execFlag = SPFunction(in_ARRAY,
+        PArgPtr, ParCharPointer);
+        if (execFlag == 1)
+            Sys_CMD_Execution(PArgPtr);
+  
+        if (execFlag == 2)
+            PipeExecutionFuncion(PArgPtr, ParCharPointer);
+    }
+    return 0;
+}

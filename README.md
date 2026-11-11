@@ -1,7 +1,6 @@
 
 # Software Engineering Academic Projects
 
-Welcome to my GitHub project portfolio.
 Explore my projects in system programming, algorithms, big data analytics, and machine learning.
 
 ## My Projects

@@ -1,8 +1,3 @@
-
-# Software Engineering Academic Projects
-
-Explore my projects in system programming, algorithms, big data analytics, and machine learning.
-
 ## My Projects
 
 ### 1. Custom Linux Shell Implementation
